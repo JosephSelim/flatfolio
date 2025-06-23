@@ -22,3 +22,8 @@ export const addApartment = async (apt: Apartment) => {
 
   return result.rows[0];
 };
+
+export const getAllApartments = async () => {
+  const result = await db.query('SELECT * FROM apartments');
+  return result.rows;
+};
