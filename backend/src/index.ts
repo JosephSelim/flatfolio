@@ -1,12 +1,19 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import apartmentRoutes from './routes/apartment.routes';
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4000;
+app.use(express.json());
+app.use('/api', apartmentRoutes);
+
+const port = Number(process.env.BACKEND_PORT) || 4000;
 
 app.get('/', (_req, res) => {
   res.send('Hello from backend');
 });
 
 app.listen(port, () => {
-  console.log(`Backend running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
