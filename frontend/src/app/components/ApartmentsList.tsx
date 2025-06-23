@@ -5,7 +5,7 @@ interface Props {
   apartments: Apartment[];
 }
 
-export default function ApartmentList({ apartments }: Props) {
+export default function ApartmentsList({ apartments }: Props) {
   if (apartments.length === 0) {
     return <p>No apartments found.</p>;
   }
