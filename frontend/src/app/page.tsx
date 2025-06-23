@@ -2,27 +2,48 @@
 
 import { useEffect, useState } from 'react';
 import axios from '@/lib/axios';
+import { Apartment } from '@/types/apartment';
 
 export default function Home() {
-  const [apartments, setApartments] = useState([]);
+  const [apartments, setApartments] = useState<Apartment[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/apartments')
-      .then(res => setApartments(res.data))
-      .catch(err => console.error('Failed to fetch apartments:', err));
+    const fetchApartments = async () => {
+      try {
+        const res = await axios.get('/apartments');
+        setApartments(res.data);
+      } catch (error) {
+        console.error('Failed to fetch apartments:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchApartments();
   }, []);
 
+  if (loading) return <div className="p-4">Loading...</div>;
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Apartments</h1>
-      <ul className="space-y-2">
-        {apartments.map((apt: any) => (
-          <li key={apt.id} className="p-4 border rounded">
-            <p><strong>{apt.unit_name}</strong> – {apt.project_name}</p>
-            <p>Price: {apt.price}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="p-6 max-w-5xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Apartment Listings</h1>
+      {apartments.length === 0 ? (
+        <p>No apartments found.</p>
+      ) : (
+        <ul className="grid gap-4">
+          {apartments.map((apt) => (
+            <li key={apt.id} className="p-4 rounded-lg shadow border">
+              <div className="text-lg font-semibold">
+                {apt.unit_name} ({apt.unit_number})
+              </div>
+              <div className="text-gray-600">{apt.project_name}</div>
+              <div className="text-sm text-gray-500">
+                {apt.price.toLocaleString()} EGP – {apt.bedrooms} bedrooms
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
