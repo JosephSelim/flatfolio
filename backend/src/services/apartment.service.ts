@@ -27,3 +27,8 @@ export const getAllApartments = async () => {
   const result = await db.query('SELECT * FROM apartments');
   return result.rows;
 };
+
+export const getApartmentById = async (id: number) => {
+  const result = await db.query('SELECT * FROM apartments WHERE id = $1', [id]);
+  return result.rows[0]; // could be undefined
+};
