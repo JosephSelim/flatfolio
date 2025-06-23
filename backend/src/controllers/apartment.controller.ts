@@ -19,7 +19,13 @@ export const listApartments = async (
     res: Response
 ) => {
   try {
-    const apartments = await getAllApartments();
+    const filters = {
+      unit_name: req.query.unit_name as string,
+      unit_number: req.query.unit_number as string,
+      project_name: req.query.project_name as string,
+    };
+
+    const apartments = await getAllApartments(filters);
     res.json(apartments);
   } catch (err) {
     res.status(500).json({ message: 'Error retrieving apartments' });

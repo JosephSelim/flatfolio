@@ -10,10 +10,6 @@ app.use('/api', apartmentRoutes);
 
 const port = Number(process.env.BACKEND_PORT) || 4000;
 
-app.get('/', (_req, res) => {
-  res.send('Hello from backend');
-});
-
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

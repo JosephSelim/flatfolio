@@ -23,8 +23,33 @@ export const addApartment = async (apt: Apartment) => {
   return result.rows[0];
 };
 
-export const getAllApartments = async () => {
-  const result = await db.query('SELECT * FROM apartments');
+export const getAllApartments = async (filters: {
+  unit_name?: string;
+  unit_number?: string;
+  project_name?: string;
+}) => {
+  const conditions: string[] = [];
+  const values: any[] = [];
+
+  if (filters.unit_name) {
+    values.push(`%${filters.unit_name}%`);
+    conditions.push(`unit_name ILIKE $${values.length}`);
+  }
+
+  if (filters.unit_number) {
+    values.push(`%${filters.unit_number}%`);
+    conditions.push(`unit_number ILIKE $${values.length}`);
+  }
+
+  if (filters.project_name) {
+    values.push(`%${filters.project_name}%`);
+    conditions.push(`project_name ILIKE $${values.length}`);
+  }
+
+  const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+  const query = `SELECT * FROM apartments ${whereClause}`;
+
+  const result = await db.query(query, values);
   return result.rows;
 };
 
