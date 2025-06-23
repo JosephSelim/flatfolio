@@ -1,9 +1,28 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import axios from '@/lib/axios';
+
 export default function Home() {
+  const [apartments, setApartments] = useState([]);
+
+  useEffect(() => {
+    axios.get('/apartments')
+      .then(res => setApartments(res.data))
+      .catch(err => console.error('Failed to fetch apartments:', err));
+  }, []);
+
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Flatfolio 🏡</h1>
-      <p>Welcome to the apartment listing app.</p>
-      <p>Start by fetching apartments or adding a new one.</p>
-    </main>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Apartments</h1>
+      <ul className="space-y-2">
+        {apartments.map((apt: any) => (
+          <li key={apt.id} className="p-4 border rounded">
+            <p><strong>{apt.unit_name}</strong> – {apt.project_name}</p>
+            <p>Price: {apt.price}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
