@@ -1,3 +1,5 @@
+'use client';
+
 import { Apartment } from '@/types/apartment';
 import ApartmentCard from './ApartmentCard';
 
@@ -13,7 +15,9 @@ export default function ApartmentsList({ apartments }: Props) {
   return (
     <ul className="grid gap-4">
       {apartments.map((apt) => (
-        <ApartmentCard key={apt.id} apartment={apt} />
+        <li key={apt.id}>
+          <ApartmentCard apartment={apt} />
+        </li>
       ))}
     </ul>
   );

@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import axios from '@/lib/axios';
 import { Apartment } from '@/types/apartment';
-import ApartmentsList from './components/ApartmentsList';
-import FilterForm from './components/Filters/FilterForm';
+import ApartmentsList from '@/components/ApartmentsList';
+import FilterForm from '@/components/Filters/FilterForm';
 
 export default function Home() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
