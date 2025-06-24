@@ -8,12 +8,13 @@ interface Props {
 }
 
 export default function ApartmentsList({ apartments }: Props) {
-  if (apartments.length === 0) {
-    return <p className="text-center text-gray-500 italic">No apartments found.</p>;
-  }
+  if (!apartments.length)
+    return (
+      <p className="text-center text-gray-500 italic">No apartments found.</p>
+    );
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
       {apartments.map((apt) => (
         <ApartmentCard key={apt.id} apartment={apt} />
       ))}
