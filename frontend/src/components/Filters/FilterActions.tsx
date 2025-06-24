@@ -5,20 +5,20 @@ interface Props {
 
 export default function FilterActions({ onClearFilters, onApplyFilters }: Props) {
   return (
-    <div className="flex justify-end gap-2">
+    <div className="flex justify-end gap-3 mt-4">
       <button
         type="button"
         onClick={onApplyFilters}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-shadow shadow-md hover:shadow-lg"
       >
-        Apply Filters
+        Apply
       </button>
       <button
         type="button"
         onClick={onClearFilters}
-        className="bg-gray-300 text-black px-4 py-2 rounded"
+        className="px-4 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200 transition-shadow shadow-sm hover:shadow"
       >
-        Clear Filters
+        Clear
       </button>
     </div>
   );

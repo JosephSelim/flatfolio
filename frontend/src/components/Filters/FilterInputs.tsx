@@ -18,7 +18,7 @@ export default function FilterInputs({ filters, onChange }: Props) {
           value={value}
           onChange={handleChange}
           placeholder={`Filter by ${key.replace(/_/g, ' ')}`}
-          className="p-2 border rounded"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
       ))}
     </div>

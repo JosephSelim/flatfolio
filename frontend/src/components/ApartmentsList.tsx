@@ -9,16 +9,14 @@ interface Props {
 
 export default function ApartmentsList({ apartments }: Props) {
   if (apartments.length === 0) {
-    return <p>No apartments found.</p>;
+    return <p className="text-center text-gray-500 italic">No apartments found.</p>;
   }
 
   return (
-    <ul className="grid gap-4">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {apartments.map((apt) => (
-        <li key={apt.id}>
-          <ApartmentCard apartment={apt} />
-        </li>
+        <ApartmentCard key={apt.id} apartment={apt} />
       ))}
-    </ul>
+    </div>
   );
 }

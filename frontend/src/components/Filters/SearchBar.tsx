@@ -11,18 +11,29 @@ export default function SearchBar({ search, onSearch, onClear }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 items-stretch">
       <input
         type="text"
         placeholder="Search unit, number, or project"
         value={search}
         onChange={(e) => onSearch(e.target.value)}
-        className="flex-1 p-2 border rounded"
+        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
-      <button type="button" onClick={onClear} className="bg-gray-300 text-black px-4 py-2 rounded">
-        Clear Search
-      </button>
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+        >
+          Search
+        </button>
+        <button
+          type="button"
+          onClick={onClear}
+          className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200 transition"
+        >
+          Clear
+        </button>
+      </div>
     </form>
   );
 }
