@@ -21,6 +21,8 @@ export default function FilterForm({ onSearch, onFilterChange }: FilterFormProps
     price_max: '',
   });
 
+  const [collapsed, setCollapsed] = useState(true);
+
   // Debounced search to make it live
   const debouncedSearch = useMemo(
     () => debounce((term: string) => onSearch(term), 500),
@@ -60,8 +62,21 @@ export default function FilterForm({ onSearch, onFilterChange }: FilterFormProps
   return (
     <div className="space-y-4 mb-6">
       <SearchBar search={search} onSearch={handleSearch} onClear={clearSearch} />
-      <FilterInputs filters={filters} onChange={handleFilterInput} />
-      <FilterActions onClearFilters={clearFilters} onApplyFilters={applyFilters} />
+
+      <button
+        type="button"
+        className="text-blue-600 underline text-sm"
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        {collapsed ? 'Show Filters' : 'Hide Filters'}
+      </button>
+
+      {!collapsed && (
+        <>
+          <FilterInputs filters={filters} onChange={handleFilterInput} />
+          <FilterActions onClearFilters={clearFilters} onApplyFilters={applyFilters} />
+        </>
+      )}
     </div>
   );
 }
