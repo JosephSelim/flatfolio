@@ -19,10 +19,22 @@ export const listApartments = async (
     res: Response
 ) => {
   try {
+    const {
+      search,
+      unit_name,
+      unit_number,
+      project_name,
+      price_min,
+      price_max
+    } = req.query;
+
     const filters = {
-      unit_name: req.query.unit_name as string,
-      unit_number: req.query.unit_number as string,
-      project_name: req.query.project_name as string,
+      search: search as string,
+      unit_name: unit_name as string,
+      unit_number: unit_number as string,
+      project_name: project_name as string,
+      price_min: price_min ? Number(price_min) : undefined,
+      price_max: price_max ? Number(price_max) : undefined
     };
 
     const apartments = await getAllApartments(filters);

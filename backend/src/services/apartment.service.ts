@@ -24,12 +24,24 @@ export const addApartment = async (apt: Apartment) => {
 };
 
 export const getAllApartments = async (filters: {
+  search?: string;
   unit_name?: string;
   unit_number?: string;
   project_name?: string;
+  price_min?: number;
+  price_max?: number;
 }) => {
   const conditions: string[] = [];
   const values: any[] = [];
+
+  if (filters.search) {
+    values.push(`%${filters.search}%`);
+    conditions.push(`(
+      unit_name ILIKE $${values.length} OR
+      unit_number ILIKE $${values.length} OR
+      project_name ILIKE $${values.length}
+    )`);
+  }
 
   if (filters.unit_name) {
     values.push(`%${filters.unit_name}%`);
@@ -44,6 +56,16 @@ export const getAllApartments = async (filters: {
   if (filters.project_name) {
     values.push(`%${filters.project_name}%`);
     conditions.push(`project_name ILIKE $${values.length}`);
+  }
+
+  if (filters.price_min) {
+    values.push(filters.price_min);
+    conditions.push(`price >= $${values.length}`);
+  }
+
+  if (filters.price_max) {
+    values.push(filters.price_max);
+    conditions.push(`price <= $${values.length}`);
   }
 
   const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
