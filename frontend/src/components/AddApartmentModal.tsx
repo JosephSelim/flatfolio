@@ -49,7 +49,11 @@ export default function AddApartmentModal({ onClose, onSuccess }: Props) {
       await axios.post('/apartments', form);
       onSuccess();
     } catch (err: any) {
-      setError('Failed to add apartment.');
+      if (err.response?.status === 409) {
+        setError('Apartment already exists.');
+      } else {
+        setError('Failed to add apartment.');
+      }
     } finally {
       setLoading(false);
     }

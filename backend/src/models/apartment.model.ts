@@ -7,6 +7,6 @@ export interface Apartment {
   price: number;
   bedrooms: number;
   bathrooms?: number;
-  comm_number?: string;
+  comm_number: string;
   created_at?: string;
 }
