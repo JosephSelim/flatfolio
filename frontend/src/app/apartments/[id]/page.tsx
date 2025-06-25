@@ -26,8 +26,8 @@ export default function ApartmentDetailsPage() {
     if (id) fetchApartment();
   }, [id]);
 
-  if (loading) return <p className="p-6">Loading apartment details...</p>;
-  if (!apartment) return <p className="p-6">Apartment not found.</p>;
+  if (loading) return <p className='p-6'>Loading apartment details...</p>;
+  if (!apartment) return <p className='p-6'>Apartment not found.</p>;
 
   return <ApartmentDetails apartment={apartment} />;
 }
